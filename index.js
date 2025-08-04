@@ -25,15 +25,36 @@ document.addEventListener("DOMContentLoaded", () => {
         // if(ballY > 400 - 20 || ballY <= 0)
         //     dy *= -1;
 
+        /*
+        *ballX < paddle.offsetLeft + paddle.offsetWidth -> if left(wrt table) of ball < right(wrt table) of the paddle
+        *ballY > paddle.offsetTop -> if top(wrt table) of ball > top(wrt table) of paddle
+        * ballY + ball.offsetHeight ->bottom of the ball
+        * paddle.offsetTop + paddle.offsetHeight -> bottom of the paddle
+        */
+        if(ballX < paddle.offsetLeft + paddle.offsetWidth && 
+            ballY > paddle.offsetTop &&
+            ballY + ball.offsetHeight < paddle.offsetTop + paddle.offsetHeight
+        ) {
+            dx *= -1;
+
+        }
+        //collision of ball and paddle
+        
+
         if(ballX > table.offsetWidth - ball.offsetWidth || ballX <= 0)
             dx *= -1;
         if(ballY >= table.offsetHeight - ball.offsetHeight || ballY <= 0)
             dy *= -1;
-    }, 1);
+
+
+        
+        
+    }, 10);
 
     let paddleY = 0;
-    let dPy = 5;//displacemnt for paddle in y direction
+    let dPy = 20;//displacemnt for paddle in y direction
     document.addEventListener("keydown" , (event) => {
+        event.preventDefault();//prevents the execution of default event behaviour
         if(event.keyCode == 38 && paddleY > 0) {
             //up arrow
             paddleY += (-1)*dPy;
