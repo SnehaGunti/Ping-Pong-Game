@@ -63,5 +63,15 @@ document.addEventListener("DOMContentLoaded", () => {
             paddleY += dPy;
         }
         paddle.style.top = `${paddleY}px`;
+    });
+
+    document.addEventListener("mousemove" , (event) => {
+        let mouseDistFormTop = event.clientY; //this is the dist of the mouse pointer from the top of the browser
+        let distOfTableFromTop = table.offsetTop;
+        let mousePointControl = mouseDistFormTop - distOfTableFromTop - paddle.offsetHeight / 2;
+        paddleY = mousePointControl;
+        if(paddleY <= 0 || paddleY > table.offsetHeight - paddle.offsetHeight)
+            return;//if bottomof paddle touches bottom of table return
+        paddle.style.top = `${paddleY}px`;
     })
 });
